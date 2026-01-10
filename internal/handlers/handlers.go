@@ -10,6 +10,7 @@ import (
 	"github.com/Yandex-Practicum/go1fl-sprint6-final/internal/service"
 )
 
+// RootHandler обработчик метода GET возвращает ответ по шаблону html
 func RootHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusInternalServerError)
@@ -17,6 +18,10 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	http.ServeFile(w, r, "index.html")
 }
+
+// LoadHandler обработчик метода Post парсит форму html,
+// обрабатывает полученный тип текста (Морзе или обычный),
+// записывает в локальный файл и отправляет клиенту
 func LoadHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusInternalServerError)

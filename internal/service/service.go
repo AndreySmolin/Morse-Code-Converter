@@ -7,6 +7,8 @@ import (
 	"github.com/Yandex-Practicum/go1fl-sprint6-final/pkg/morse"
 )
 
+// DetectionMorse принимает и определяет тип  строки
+// отдает преобразованную строку
 func DetectionMorse(data string) (string, error) {
 	sliceData := strings.Split(data, "")
 	if len(sliceData) == 0 {

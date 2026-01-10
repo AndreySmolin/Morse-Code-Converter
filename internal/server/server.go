@@ -13,6 +13,8 @@ type Server struct {
 	Http   *http.Server
 }
 
+// NewRouter создает HTTP сервер с маршрутизатором,
+// регистрирует обработчики , настраивает сервер и возвращает для управления
 func NewRouter(logger *log.Logger) *Server {
 	router := http.NewServeMux()
 	router.HandleFunc(`/`, handlers.RootHandler)
