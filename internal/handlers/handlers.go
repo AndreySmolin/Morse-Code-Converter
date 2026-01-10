@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -15,6 +16,9 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed", http.StatusInternalServerError)
 		return
 	}
+	cwd, _ := os.Getwd()
+	log.Printf("CWD: %s, looking for: %s", cwd, "./index.html")
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	http.ServeFile(w, r, "../index.html")
 }
 func LoadHandler(w http.ResponseWriter, r *http.Request) {
