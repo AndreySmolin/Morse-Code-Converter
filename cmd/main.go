@@ -10,7 +10,7 @@ import (
 func main() {
 	logger := log.New(os.Stdout, "Server:", log.LstdFlags)
 	server := server.NewRouter(logger)
-	logger.Print("Start")
+	logger.Print("Start port:8080")
 	err := server.Http.ListenAndServe()
 	if err != nil {
 		logger.Fatalf("Fatal error:%v", err)

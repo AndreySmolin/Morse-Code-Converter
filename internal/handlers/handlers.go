@@ -13,7 +13,7 @@ import (
 // RootHandler обработчик метода GET возвращает ответ по шаблону html
 func RootHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusInternalServerError)
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 	http.ServeFile(w, r, "index.html")
@@ -24,7 +24,7 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 // записывает в локальный файл и отправляет клиенту
 func LoadHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusInternalServerError)
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 	err := r.ParseForm()
@@ -53,6 +53,8 @@ func LoadHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, fmt.Sprintf("%v", err), http.StatusInternalServerError)
 		return
 	}
-	w.Header().Set("Content-Disposition", `inline; filename="`+name+`"`)
-	http.ServeFile(w, r, name)
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		http.Error(w, fmt.Sprintf("%v", err), http.StatusInternalServerError)
+	}
 }
